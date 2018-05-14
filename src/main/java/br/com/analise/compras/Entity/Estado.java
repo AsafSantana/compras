@@ -1,5 +1,6 @@
 package br.com.analise.compras.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.Serializable;
@@ -48,6 +49,7 @@ public class Estado implements Serializable {
      * ASSOCIAÇOES
      */
     @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "estado") //nome da variavel da cidade
     private List<Cidade> cidade = new ArrayList<>();
 

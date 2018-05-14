@@ -40,7 +40,6 @@ public class Categoria implements Serializable {
     /**
      * ASSOCIAÇOES
      */
-    @JsonManagedReference
     @ManyToMany(mappedBy = "categorias")
     List<Produto> produtos = new ArrayList<>();
 
