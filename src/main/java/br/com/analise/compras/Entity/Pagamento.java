@@ -1,34 +1,46 @@
 package br.com.analise.compras.Entity;
 
+
 import br.com.analise.compras.Entity.enumeration.EstadoPagamentoEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_pagamento")
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "TB_PAGAMENTO")
 @SequenceGenerator(name = "seq_pagamento", sequenceName = "seq_pagamento")
-public class Pagamento implements Serializable {
-
+public class Pagamento implements Serializable{
 
     @Id
+    @Column(name = "pa_id")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_pagamento")
-    @Column(name = "PA_ID")
     private Integer id;
 
-    @Column(name = "PA_ESTADO")
+    @Column(name = "pa_estado")
+    @Enumerated(EnumType.STRING)
     private EstadoPagamentoEnum estado;
-
 
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "PE_ID")
+    @JoinColumn(name = "pe_id")
     @MapsId
     private Pedido pedido;
-
 
     public Pagamento(){
 

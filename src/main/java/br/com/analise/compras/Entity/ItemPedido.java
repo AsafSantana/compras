@@ -2,7 +2,6 @@ package br.com.analise.compras.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -19,30 +18,35 @@ public class ItemPedido implements Serializable {
     private Double preco;
     private Integer quantidade;
 
-
     public ItemPedido() {
 
     }
 
-    public ItemPedido(Pedido pedido, Produto produto, Double desconto,Integer quantidade , Double preco) {
+    public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
         super();
-        this.id.setPedido(pedido);
-        this.id.setProduto(produto);
+        id.setPedido(pedido);
+        id.setProduto(produto);
         this.desconto = desconto;
         this.preco = preco;
         this.quantidade = quantidade;
     }
 
-
     public Produto getProduto() {
-        return this.getProduto();
+        return id.getProduto();
     }
 
     @JsonIgnore
-    public Pedido getPedido() {
-        return this.id.getPedido();
+    public Pedido getPedido(){
+        return id.getPedido();
     }
 
+    public ItemPedidoPK getId() {
+        return id;
+    }
+
+    public void setId(ItemPedidoPK id) {
+        this.id = id;
+    }
 
     public Double getDesconto() {
         return desconto;
@@ -66,14 +70,6 @@ public class ItemPedido implements Serializable {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public ItemPedidoPK getId() {
-        return id;
-    }
-
-    public void setId(ItemPedidoPK id) {
-        this.id = id;
     }
 
     @Override

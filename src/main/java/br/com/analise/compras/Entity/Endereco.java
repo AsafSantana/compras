@@ -1,61 +1,58 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.analise.compras.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- *
- * @author Asaf Santana
- */
-
 @Entity
-@Table(name = "TB_ENDERECO")
+@Table(name = "tb_endereco")
 @SequenceGenerator(name = "seq_endereco", sequenceName = "seq_endereco")
 public class Endereco implements Serializable {
 
     @Id
+    @Column(name = "en_id")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_endereco")
-    @Column(name = "EN_ID")
     private Integer id;
 
-    @Column(name = "EN_LOGRADOURO")
+    @Column(name = "en_logradouro")
     private String logradouro;
 
-    @Column(name = "EN_NUMERO")
+    @Column(name = "en_numero")
     private String numero;
 
-    @Column(name = "EN_COMPLEMENTO")
+    @Column(name = "en_complemento")
     private String complemento;
 
-    @Column(name = "EN_BAIRRO")
+    @Column(name = "en_bairro")
     private String bairro;
 
-    @Column(name = "EN_CEP")
+    @Column(name = "en_cep")
     private String cep;
 
     @ManyToOne
-    @JoinColumn(name = "CI_ID")
+    @JoinColumn(name = "ci_id")
     private Cidade cidade;
 
-    @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "CL_ID")
+    @ManyToOne
+    @JoinColumn(name = "cl_id")
     private Cliente cliente;
 
     public Endereco(){
 
     }
 
-
-    public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
+    public Endereco(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, Cidade cidade, Cliente cliente) {
         this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;

@@ -6,16 +6,15 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Embeddable
-public class ItemPedidoPK implements Serializable {
+public class ItemPedidoPK implements Serializable{
 
     @ManyToOne
-    @JoinColumn(name = "PR_ID")
+    @JoinColumn(name = "pr_id")
     private Produto produto;
 
     @ManyToOne
-    @JoinColumn (name = "PE_ID")
+    @JoinColumn(name = "pe_id")
     private Pedido pedido;
-
 
     public ItemPedidoPK() {
 

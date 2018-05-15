@@ -9,19 +9,18 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "TB_PAGAMENTO_COM_BOLETO")
+@Table(name = "tb_pagamento_com_boleto")
 public class PagamentoComBoleto extends Pagamento{
 
-    @JsonFormat (pattern = "dd/MM/yyyy")
-    @Column (name = "DATA_VENCIMANTO")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "data_vencimento")
     private Date dataVencimento;
 
-    @JsonFormat (pattern = "dd/MM/yyyy")
-    @Column (name = "DATA_PAGAMENTO")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "data_pagamento")
     private Date dataPagamento;
 
-    public PagamentoComBoleto(){
-
+    public PagamentoComBoleto() {
 
     }
 

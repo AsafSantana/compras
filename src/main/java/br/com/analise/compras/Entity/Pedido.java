@@ -2,46 +2,51 @@ package br.com.analise.compras.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-
 @Entity
-@Table(name = "TB_PEDIDO")
+@Table(name = "tb_pedido")
 @SequenceGenerator(name = "seq_pedido", sequenceName = "seq_pedido")
 public class Pedido implements Serializable {
 
-
     @Id
-    @Column(name = "PE_ID")
+    @Column(name = "pe_id")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_pedido")
     private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-    @Column(name = "PE_INSTANTE")
+    @Column(name = "pe_instante")
     private Date instante;
-
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
-
     @ManyToOne
-    @JoinColumn(name = "EN_ID")
+    @JoinColumn(name = "en_id")
     private Endereco enderecoDeEntrega;
 
-
     @ManyToOne
-    @JoinColumn(name = "CL_ID")
+    @JoinColumn(name = "cl_id")
     private Cliente cliente;
 
-
-   @OneToMany (mappedBy = "id.pedido")
-   private Set<ItemPedido> itens = new HashSet<>();
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {
 

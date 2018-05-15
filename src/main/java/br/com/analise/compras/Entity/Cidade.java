@@ -1,7 +1,5 @@
 package br.com.analise.compras.Entity;
 
-import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,26 +9,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-@Table(name = "TB_CIDADE")
+@Table(name = "tb_cidade")
 @SequenceGenerator(name = "seq_cidade", sequenceName = "seq_cidade")
 public class Cidade implements Serializable {
 
     @Id
+    @Column(name = "ci_id")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_cidade")
-    @Column(name = "CI_ID")
     private Integer id;
 
-    @Column(name = "CI_NOME")
+    @Column(name = "ci_nome")
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name = "ES_ID")
+    @JoinColumn(name = "es_id")
     private Estado estado;
 
-    
-    
     public Cidade() {
 
     }
@@ -67,12 +65,8 @@ public class Cidade implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Cidade cidade = (Cidade) o;
         return Objects.equals(id, cidade.id);
     }

@@ -1,11 +1,12 @@
 package br.com.analise.compras.Entity.enumeration;
 
+import br.com.analise.compras.Entity.Estado;
+
 public enum EstadoPagamentoEnum {
 
-    PEDENTE("Pendente"),
+    PENDENTE("Pendente"),
     QUITADO("Quitado"),
     CANCELADO("Cancelado");
-
 
     String descricao;
 
@@ -16,10 +17,4 @@ public enum EstadoPagamentoEnum {
     public String getDescricao() {
         return descricao;
     }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-
 }

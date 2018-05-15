@@ -3,59 +3,70 @@ package br.com.analise.compras.Entity;
 import br.com.analise.compras.Entity.enumeration.TipoClienteEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "TB_CLIENTE")
+@Table(name = "tb_cliente")
 @SequenceGenerator(name = "seq_cliente", sequenceName = "seq_cliente")
-public class Cliente implements Serializable {
-
+public class Cliente implements Serializable{
 
     @Id
+    @Column(name = "cl_id")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_cliente")
-    @Column(name = "CL_ID")
     private Integer id;
 
-    @Column(name = "CL_NOME")
+    @Column(name = "cl_nome")
     private String nome;
 
-    @Column(name = "CL_EMAIL")
+    @Column(name = "cl_email")
     private String email;
 
-    @Column(name = "CL_CPF_CNPJ")
+    @Column(name = "cl_cpf_cnpj")
     private String cpfOuCnpj;
 
-    @Column(name = "CL_TIPO_CLIENTE")
-    private TipoClienteEnum tipoCLiente;
+    @Column(name = "cl_tipo_cliente")
+    @Enumerated(EnumType.STRING)
+    private TipoClienteEnum tipoCliente;
 
     @ElementCollection
-    @CollectionTable(name = "TB_TELEFONE", joinColumns = @JoinColumn(name = "CL_ID"))
-    private Set<String>  telefone = new HashSet<>();
+    @CollectionTable(name = "tb_telefone", joinColumns = @JoinColumn(name = "cl_id"))
+    private Set<String> telefones = new HashSet<>();
 
-
-    @OneToMany (mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
-
     @JsonIgnore
-    @OneToMany (mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
-
-    public Cliente(){
-
+    private Cliente(){
 
     }
 
-    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoClienteEnum tipoCLiente) {
+    public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoClienteEnum tipoCliente) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCLiente = tipoCLiente;
+        this.tipoCliente = tipoCliente;
     }
 
     public Integer getId() {
@@ -90,20 +101,20 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
     }
 
-    public TipoClienteEnum getTipoCLiente() {
-        return tipoCLiente;
+    public TipoClienteEnum getTipoCliente() {
+        return tipoCliente;
     }
 
-    public void setTipoCLiente(TipoClienteEnum tipoCLiente) {
-        this.tipoCLiente = tipoCLiente;
+    public void setTipoCliente(TipoClienteEnum tipoCliente) {
+        this.tipoCliente = tipoCliente;
     }
 
-    public Set<String> getTelefone() {
-        return telefone;
+    public Set<String> getTelefones() {
+        return telefones;
     }
 
-    public void setTelefone(Set<String> telefone) {
-        this.telefone = telefone;
+    public void setTelefones(Set<String> telefones) {
+        this.telefones = telefones;
     }
 
     public List<Endereco> getEnderecos() {
@@ -114,20 +125,20 @@ public class Cliente implements Serializable {
         this.enderecos = enderecos;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cliente cliente = (Cliente) o;
-        return Objects.equals(id, cliente.id);
-    }
-
     public List<Pedido> getPedidos() {
         return pedidos;
     }
 
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(id, cliente.id);
     }
 
     @Override

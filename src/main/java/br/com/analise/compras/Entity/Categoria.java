@@ -1,32 +1,37 @@
 package br.com.analise.compras.Entity;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "TB_CATEGORIA")
+@Table(name = "tb_categoria")
 @SequenceGenerator(name = "seq_categoria", sequenceName = "seq_categoria")
 public class Categoria implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_categoria")
-    @Column(name = "CA_ID")
+    @Column(name = "ca_id")
     private Integer id;
 
-    @Column(name = "CA_NOME")
+    @Column(name = "ca_nome")
     private String nome;
 
+    //Associações
+    @ManyToMany(mappedBy = "categorias")
+    List<Produto> produtos = new ArrayList<>();
 
-    /**
-     * CONTRUTORES
-     */
     public Categoria() {
 
     }
@@ -36,19 +41,13 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
-    /**
-     * ASSOCIAÇOES
-     */
-    @ManyToMany(mappedBy = "categorias")
-    List<Produto> produtos = new ArrayList<>();
-
-
-
-
-    /**
-     * GETERS E SETERS
-     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -56,14 +55,6 @@ public class Categoria implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public List<Produto> getProdutos() {
@@ -87,5 +78,4 @@ public class Categoria implements Serializable {
 
         return Objects.hash(id);
     }
-
 }
